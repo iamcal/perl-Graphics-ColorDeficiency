@@ -4,7 +4,7 @@ use Graphics::ColorObject;
 use Graphics::ColorDeficiency::Data;
 
 @ISA = ('Graphics::ColorObject');
-$VERSION = 0.03;
+$VERSION = 0.04;
 
 sub Clone {
 	my ($self) = @_;
@@ -51,7 +51,7 @@ sub asTypicalMonochrome {
 	my ($h1, $s1, $v1) = $self->asHSV;
 	my $temp = Graphics::ColorObject->newRGB($val, $val, $val);
 	my ($h2, $s2, $v2) = $temp->asHSV;
-	$temp->setHSV($h2, $s2, $v1);
+	$temp->setHSV($h2, $s2, ($v1+$v2)/2);
 	return $temp;
 }
 
