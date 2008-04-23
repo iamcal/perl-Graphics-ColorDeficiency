@@ -4,7 +4,7 @@ use Graphics::ColorObject;
 use Graphics::ColorDeficiency::Data;
 
 @ISA = ('Graphics::ColorObject');
-$VERSION = 0.01;
+$VERSION = 0.02;
 
 sub Clone {
 	my ($self) = @_;
@@ -54,9 +54,6 @@ sub asTypicalMonochrome {
 sub asAtypicalMonochrome {
 	my ($self, $ratio) = @_;
 	$ratio = 0.2 unless defined $ratio;
-
-	print "RATIO: $ratio\n";
-
 	my $val = $self->asGrey2();
 	my ($r, $g, $b) = $self->asRGB();
 	$val *= 1 - $ratio;
@@ -101,7 +98,7 @@ sub asMix {
 	my $rat1 = 1 - $rat2;
 	my ($r1, $g1, $b1) = $self->asRGB();
 	my ($r2, $g2, $b2) = $mix->asRGB();
-	return Graphics::ColorObject->newRGB( ($r1*$rat1)+($r2*$rat2), ($g1*$rat1)+($g2*$rat2), ($b1*$rat1)+($b2*$rat2) );
+	return Graphics::ColorDeficiency->newRGB( ($r1*$rat1)+($r2*$rat2), ($g1*$rat1)+($g2*$rat2), ($b1*$rat1)+($b2*$rat2) );
 }
 
 sub getColorBounds {
