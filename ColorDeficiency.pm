@@ -4,7 +4,7 @@ use Graphics::ColorObject;
 use Graphics::ColorDeficiency::Data;
 
 @ISA = ('Graphics::ColorObject');
-$VERSION = 0.02;
+$VERSION = 0.03;
 
 sub Clone {
 	my ($self) = @_;
@@ -47,20 +47,19 @@ sub asTritanopia {
 
 sub asTypicalMonochrome {
 	my ($self) = @_;
-	my $val = $self->asGrey2();
-	return Graphics::ColorObject->newRGB($val, $val, $val);
+	my $val = $self->asGrey2;
+	my ($h1, $s1, $v1) = $self->asHSV;
+	my $temp = Graphics::ColorObject->newRGB($val, $val, $val);
+	my ($h2, $s2, $v2) = $temp->asHSV;
+	$temp->setHSV($h2, $s2, $v1);
+	return $temp;
 }
 
 sub asAtypicalMonochrome {
 	my ($self, $ratio) = @_;
 	$ratio = 0.2 unless defined $ratio;
-	my $val = $self->asGrey2();
-	my ($r, $g, $b) = $self->asRGB();
-	$val *= 1 - $ratio;
-	$r *= $ratio;
-	$g *= $ratio;
-	$b *= $ratio;
-	return Graphics::ColorObject->newRGB($r+$val, $g+$val, $b+$val);	
+	my $temp = $self->asTypicalMonochrome;
+	return $self->asMix($temp, 1 - $ratio);
 }
 
 sub asHash {
