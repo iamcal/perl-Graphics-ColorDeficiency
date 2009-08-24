@@ -1,7 +1,7 @@
-use Test::Simple tests => 3;
+use Test::More tests => 3;
 
 require "t/color.inc";
 
-ok($obj1->asProtanopia->asHex eq '#8593C7');
-ok($obj1->asDeutanopia->asHex eq '#8093CD');
-ok($obj1->asTritanopia->asHex eq '#5A9FAB');
+is($obj1->asProtanopia->asHex, '#8593C7');
+is($obj1->asDeutanopia->asHex, '#8093CD');
+is($obj1->asTritanopia->asHex, '#5A9FAB');

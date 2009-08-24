@@ -1,11 +1,9 @@
-use Test::Simple tests => 3;
+use Test::More tests => 3;
 
-eval "use Graphics::ColorDeficiency";
-ok(!@!, "load module");
+BEGIN { use_ok( 'Graphics::ColorDeficiency' ); }
 
-eval 'require "t/color.inc";';
-ok(!@!, "load inc");
+require_ok( 't/color.inc' );
 
-ok($obj1->asHex eq '#6699CC');
+is($obj1->asHex, '#6699CC');
 
 undef $obj1;
